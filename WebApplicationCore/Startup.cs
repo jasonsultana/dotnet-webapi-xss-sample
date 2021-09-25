@@ -30,9 +30,9 @@ namespace WebApplicationCore
                 .AddControllers()
                 .AddJsonOptions(options=> 
                 {  
-                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                    options.JsonSerializerOptions.DictionaryKeyPolicy = null;
-                    options.JsonSerializerOptions.Converters.Add(new AntiXssConverter());
+                    //options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    //options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+                    //options.JsonSerializerOptions.Converters.Add(new AntiXssConverter());
                 });
             
             services.AddSwaggerGen(c =>
@@ -58,9 +58,10 @@ namespace WebApplicationCore
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseMiddleware<ExceptionMiddleware>();
-
+            app.UseMiddleware<AntiXssMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
